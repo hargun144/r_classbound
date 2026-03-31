@@ -35,7 +35,7 @@ This enables dynamic, hands-on visual exploration of decision boundary behaviors
 
 ## Results & Visual Proof
 
-*(Add screenshot here)*
+![Draw-Data boundary exploration](screenshot.png)
 
 ---
 
