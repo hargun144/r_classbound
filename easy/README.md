@@ -15,7 +15,7 @@ Added RandomForest as a 4th classification method to all three tabset panels (Ba
 ## Screenshots
 
 ### Basic-Sim
-![Basic-Sim](screenshot.png)
+![Basic-Sim](Basic-Sim.png)
 
 ### SIM-Outliers
 ![SIM-Outliers](screenshot_outliers.png)
