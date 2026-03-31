@@ -1,49 +1,72 @@
-# classbound: GSoC 2026 Evaluation Tasks
+# GSoC 2026 | classbound Evaluation Tasks
 
-Welcome to my submission for the Google Summer of Code (GSoC) 2026 evaluation tasks for the `classbound` package!
+> Extending interactive decision boundary exploration for R — one classifier at a time.
 
-This repository contains my solutions for the Easy, Medium, and Hard tasks designed to extend the classifier boundary exploration capabilities of the package.
+This repository documents my complete GSoC 2026 test submissions for the [`classbound`](https://github.com/natydasilva/classbound) package by Natalia da Silva. Each task pushes the package further toward becoming a general-purpose tool for visualizing how classifiers carve up feature space.
 
-## Easy Task: RandomForest Classifier Integration
+---
 
-PR Link: [natydasilva/classbound#5](https://github.com/natydasilva/classbound/pull/5) Location: `/easy`
+## What is classbound?
 
-Summary: Integrated RandomForest as a 4th classification method into the `explorapp()` Shiny application. The app now displays a 4-panel split comparing `rpart`, `PPtree`, `PPtreeExt`, and `RandomForest` boundaries across all three simulated datasets (Basic-Sim, MixSim, and SIM-Outliers).
+`classbound` is an R package built around a Shiny app (`explorapp()`) that lets you simulate 2D datasets and visually compare how different classification algorithms draw their decision boundaries. Think of it as a live, interactive laboratory for understanding what a classifier is *actually* doing — not just what its accuracy number says.
 
-For screenshots and detailed implementation notes, see the [Easy Task README](easy/README.md).
+---
 
-## Medium Task: Grand Tour Boundary Comparison
+## Task Overview
 
-Location: `/med`
+| Task | What I Built | PR |
+|------|-------------|-----|
+| Easy | Added RandomForest as a 4th classifier across all panels | [#5](https://github.com/natydasilva/classbound/pull/5) |
+| Medium | Grand tour animation comparing rpart vs PPtreeExt on 21D data | — |
+| Hard | Brand new Draw-Data panel — draw your own dataset with the mouse | [#4](https://github.com/natydasilva/classbound/pull/4) |
 
-Summary: Reproduced Figure 11 from the Enhanced Projection Pursuit Tree Classifier paper. Used the `tourr` package grand tour on the 21-dimensional `data69_1` dataset to compare how `rpart` (axis-aligned splits) and `PPtreeExt` (oblique splits) partition the data space.
+---
 
-For the generated animated GIFs, static visual comparisons, and reproducible scripts, see the [Medium Task README](med/README.md).
+## Easy — RandomForest as 4th Classifier
 
-## Hard Task: Interactive Draw-Data Exploration
+**Location:** [`/easy`](easy/README.md)
 
-PR Link: [natydasilva/classbound#4](https://github.com/natydasilva/classbound/pull/4) Location: `/hard`
+The existing app compared 3 methods. I added `RandomForest` as a fourth, updating all three simulation panels (Basic-Sim, SIM-Outliers, MixSim) to display a clean 4-panel boundary comparison side by side.
 
-Summary: Added a completely new, interactive "Draw-Data" tabset panel to the `explorapp()` Shiny UI. Users can now draw custom 2D point clouds using their mouse (e.g., spirals, moons), assign classes on the fly, and dynamically evaluate the decision boundaries of all integrated classifiers. Includes robust error handling (`tryCatch`) to safely fail when models receive degenerate hand-drawn data.
+→ [See implementation + screenshots](easy/README.md)
 
-For screenshots and UI/Server architecture details, see the [Hard Task README](hard/README.md).
+---
 
-## How to Test the Shiny App Locally
+## Medium — Grand Tour Boundary Comparison
 
-To test the Easy and Hard tasks (which modify the `explorapp` interface), you will need the relevant branches checked out.
+**Location:** [`/med`](med/README.md)
 
-1. Ensure prerequisites are installed:
+Used the `tourr` package to animate random 2D projections of the 21-dimensional `data69_1` waveform dataset, coloring points by predicted class. The resulting GIFs make it immediately obvious why PPtreeExt outperforms rpart — its oblique splits align with the natural geometry of the data, while rparts axis-aligned boundaries miss the structure entirely.
+
+→ [See animated GIFs + analysis](med/README.md)
+
+---
+
+## Hard — Draw-Data Interactive Panel
+
+**Location:** [`/hard`](hard/README.md)
+
+The most open-ended task. I built a brand new `Draw-Data` tab inside `explorapp()` — a blank canvas where you click to place labeled points, then hit Classify to instantly see how Rpart, RandomForest, and PPtreeExt each partition the space you drew. Draw spirals. Draw moons. Draw anything parametric simulation cannot capture.
+
+Robust `tryCatch` handling ensures one failing model never crashes the others.
+
+→ [See screenshots + architecture](hard/README.md)
+
+---
+
+## Run It Yourself
 ```r
-install.packages(c("randomForest", "gridExtra", "ggplot2", "shiny", "tourr", "rpart", "gifski"))
+# Install dependencies
 devtools::install_github("natydasilva/PPtreeViz")
 devtools::install_github("natydasilva/PPtreeExt")
-```
+install.packages(c("randomForest", "rpart", "shiny", "ggplot2", "gridExtra", "tourr", "gifski"))
 
-2. Load the package and launch the app:
-```r
+# Launch
 devtools::load_all()
 explorapp()
 ```
 
-Thank you to the mentors for reviewing my submission!
+---
+
+*Submitted by Hargun Kaur | B.Tech ECE (AI Specialization), IGDTUW, Batch 2024–2028*
 
